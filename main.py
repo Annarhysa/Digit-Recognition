@@ -42,4 +42,31 @@ lambda_reg = 0.1 # to avoid overfitting
 args = (input_layer_size, hidden_layer_size, num_labels, x_train, y_train, lambda_reg)
 
 #Calling minimize function to reduce cost function and to train weights
-results = minimize()
+results = minimize(neural_network, x0 = i_nn_params, args = args, options = {'disp': True, 'maxiter': max_iter}, method = "L-BFGS-B", jac = True)
+
+#extracting trained theta
+nn_params = results["x"]
+
+#splitting weights again
+t1 = np.reshape(nn_params[:hidden_layer_size * (input_layer_size + 1)], (hidden_layer_size, input_layer_size + 1)) 
+t2 = np.reshape(nn_params[hidden_layer_size * (input_layer_size + 1):], (num_labels, hidden_layer_size + 1)) 
+
+#checking accuracy of the model on test set
+pred = predict(t1,t2,x_test)
+print('Test Set Accuracy: {:f}'.format((np.mean(pred == y_test) * 100)))
+
+#checking accuracy of the model on train set
+pred = predict(t1, t2,x_train)
+print('Training Set Accuracy: {:f}'.format((np.mean(pred == y_train) * 100)))
+
+# Evaluating precision of our model
+true_positive = 0
+for i in range(len(pred)):
+    if pred[i] == y_train[i]:
+        true_positive += 1
+false_positive = len(y_train) - true_positive
+print('Precision =', true_positive/(true_positive + false_positive))
+ 
+# Saving Thetas in .txt file
+np.savetxt('Theta1.txt', t1, delimiter=' ')
+np.savetxt('Theta2.txt', t2, delimiter=' ')

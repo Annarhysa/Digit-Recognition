@@ -28,19 +28,18 @@ def neural_network(params, input_size, hidden_size, labels, x, y, lamb):
         y_vect[i, int(y[i])] = 1
 
     #Calculate the cost function
-    J = (1/m)*(np.sum(np.sum(-y_vect * np.log(a3) - (1-y_vect)*np.log(1-a3)))) + (lamb/(2*m))*(sum(sum(pow(theta1[:,1],2))) + sum(sum(pow(theta2[:,1:],2))))
+    J = (1 / m) * (np.sum(np.sum(-y_vect * np.log(a3) - (1 - y_vect) * np.log(1 - a3)))) + (lamb / (2 * m)) * (
+                sum(sum(pow(theta1[:, 1:], 2))) + sum(sum(pow(theta2[:, 1:], 2))))
 
     #Backpropagation
-    d1 = a3 - y_vect
-    d2 = np.dot(d1, theta2) * a2 *(1-a2)
-    d2 = d2[:,1:]
+    Delta3 = a3 - y_vect
+    Delta2 = np.dot(Delta3, theta2) * a2 * (1 - a2)
+    Delta2 = Delta2[:, 1:]
 
     #Gradient descent
     theta1[:, 0] = 0
-    theta1_grad = (1/m) * np.dot(d1.transpose(), a1) + (lamb/m) *theta1
+    Theta1_grad = (1 / m) * np.dot(Delta2.transpose(), a1) + (lamb / m) * theta1
     theta2[:, 0] = 0
-    theta2_grad = (1/m) * np.dot(d2.transpose(), a2) + (lamb/m) * theta2
-
-    grad = np.concatenate((theta1_grad.flatten(), theta2_grad.flatten()))
-
+    Theta2_grad = (1 / m) * np.dot(Delta3.transpose(), a2) + (lamb / m) * theta2
+    grad = np.concatenate((Theta1_grad.flatten(), Theta2_grad.flatten()))
     return J,grad
