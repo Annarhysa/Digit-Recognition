@@ -3,5 +3,5 @@
 - With a digital slate to work real-time
 - Using tkinter for the UI
 
-The application looks as follow:
+The application looks as follow:\
 ![tkinter app](images/image.png)
