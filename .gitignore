@@ -1,2 +1,4 @@
 mnist
 __pycache__
+build
+gui.spec

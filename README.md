@@ -1,7 +1,9 @@
 # Digit-Recognition
-- Building a digit recognizer model with the help of MNIST dataset
-- With a digital slate to work real-time
-- Using tkinter for the UI
+- Building a digit recognizer model with the help of the MNIST dataset
+- With a digital slate to work in real time
+- Using Tkinter for the UI
 
-The application looks as follow:
+Download my app: <a href="https://github.com/Annarhysa/Digit-Recognition/blob/anna/gui.exe" download>Digit Recognizer</a>
+
+The application looks as follows :\
 ![tkinter app](images/image.png)
